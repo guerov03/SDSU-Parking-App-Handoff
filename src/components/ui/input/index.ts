@@ -1,1 +1,1 @@
-export { Input, type InputProps, type InputSize } from "./Input";
+export { Input, type InputProps, type InputSize } from "./input";

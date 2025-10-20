@@ -1,7 +1,17 @@
 import { cn } from "@/lib/cn";
-import { forwardRef, memo, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import {
+  forwardRef,
+  memo,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from "react";
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "destructive" | "google";
+export type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "destructive"
+  | "google";
 export type ButtonSize = "default";
 
 export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
@@ -15,27 +25,28 @@ export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
 // Base button styles using component tokens
 const BASE_CLASSES = [
   // Layout
+  "w-full flex self-stretch",
   "inline-flex items-center justify-center",
   "gap-[var(--component-button-gap)]",
-  
+
   // Shape & Border
   "rounded-[var(--component-button-radius)]",
   "border-[length:var(--component-button-border-width)]",
-  
+
   // Typography
   "text-[length:var(--component-button-font-size)]",
   "font-[var(--component-button-font-weight)]",
   "leading-none",
-  
+
   // Transitions
   "transition-colors duration-150",
-  
+
   // Focus States
   "focus-visible:outline",
   "focus-visible:outline-2",
   "focus-visible:outline-[var(--semantic-border-focus)]",
   "focus-visible:outline-offset-2",
-  
+
   // Disabled States
   "disabled:pointer-events-none",
   "disabled:opacity-40",
@@ -45,18 +56,19 @@ const BASE_CLASSES = [
 const ICON_WRAPPER_CLASSES = [
   // Layout
   "inline-flex shrink-0 items-center justify-center",
-  
+
   // Sizing using component tokens
   "h-[var(--component-button-icon-size)]",
   "w-[var(--component-button-icon-size)]",
-  
+
   // SVG child sizing
   "[&>svg]:h-full [&>svg]:w-full",
 ].join(" ");
 
 // Size variants
 const SIZE_STYLES: Record<ButtonSize, string> = {
-  default: "min-h-[var(--component-button-height-default)] px-[var(--component-button-padding-inline)] py-[var(--component-button-padding-block)]",
+  default:
+    "min-h-[var(--component-button-height-default)] px-[var(--component-button-padding-inline)] py-[var(--component-button-padding-block)]",
 };
 
 // Variant styles using component tokens
@@ -145,7 +157,7 @@ const IconWrapper = memo(({ icon }: { icon: ReactNode }) => (
 IconWrapper.displayName = "IconWrapper";
 
 /**
- * 
+ *
  * ```tsx
  * <Button variant="primary">Click me</Button>
  * <Button variant="outline" leadingIcon={<Icon />}>With Icon</Button>
@@ -166,7 +178,7 @@ export const Button = memo(
       children,
       ...rest
     },
-    ref
+    ref,
   ) {
     const isDisabled = disabled || isLoading;
 
@@ -175,7 +187,7 @@ export const Button = memo(
       BASE_CLASSES,
       SIZE_STYLES[size],
       VARIANT_STYLES[variant],
-      className
+      className,
     );
 
     return (
@@ -205,7 +217,7 @@ export const Button = memo(
           <span
             className={cn(
               "inline-flex items-center justify-center",
-              isLoading && "opacity-0"
+              isLoading && "opacity-0",
             )}
           >
             {children}
@@ -216,7 +228,7 @@ export const Button = memo(
         {!isLoading && trailingIcon && <IconWrapper icon={trailingIcon} />}
       </button>
     );
-  })
+  }),
 );
 
 Button.displayName = "Button";

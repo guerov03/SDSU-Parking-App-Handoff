@@ -1,117 +1,176 @@
-import { forwardRef } from "react";
-import type {
-  ComponentPropsWithRef,
-  ComponentPropsWithoutRef,
-  ElementType,
-  ReactElement,
-  ReactNode,
-} from "react";
+/**
+ * COMPONENT TEMPLATE
+ *
+ * Use this file as a starting point to create new UI components.
+ *
+ * 1. SETUP
+ * -------------
+ * 1. Copy this template folder to create a new component
+ * 2. Rename the folder and files to match your component name
+ * 3. Update the component name throughout this file
+ *
+ * 2. DEFINE TYPES & VARIANTS
+ * --------------------------------
+ * 1. Define variant types (e.g., "primary" | "secondary" | "outline")
+ * 2. Define size types (e.g., "sm" | "md" | "lg")
+ * 3. Create the component props interface extending necessary React types
+ *
+ * Example:
+ * ```tsx
+ * export type ComponentVariant = "primary" | "secondary" | "outline";
+ * export type ComponentSize = "small" | "default" | "large";
+ *
+ * export interface ComponentProps extends ComponentPropsWithoutRef<"div"> {
+ *   variant?: ComponentVariant;
+ *   size?: ComponentSize;
+ *   children?: ReactNode;
+ * }
+ * ```
+ *
+ * 3. CREATE STYLE CONSTANTS
+ * -------------------------------
+ * 1. Use array based class organization for maintainability
+ * 2. Use design system tokens from globals.css
+ * 3. Group classes by category
+ *
+ * Example:
+ * ```tsx
+ * const BASE_CLASSES = [
+ *   // Layout
+ *   "flex",
+ *   "items-center",
+ *   "gap-[var(--component-button-gap)]",
+ *
+ *   // Typography
+ *   "text-[length:var(--semantic-text-size-body)]",
+ *   "font-[var(--semantic-text-weight-regular)]",
+ *
+ *   // Borders & Radius
+ *   "rounded-[var(--semantic-radius-md)]",
+ *   "border-[length:var(--semantic-border-width-default)]",
+ * ].join(" ");
+ *
+ * const VARIANT_STYLES: Record<ComponentVariant, string> = {
+ *   primary: [
+ *     "bg-[var(--component-button-bg-primary-default)]",
+ *     "text-[var(--component-button-text-primary-default)]",
+ *     "hover:bg-[var(--component-button-bg-primary-hover)]",
+ *   ].join(" "),
+ *   // ... other variants
+ * };
+ * ```
+ *
+ * 4. BUILD THE COMPONENT
+ * ----------------------------
+ * 1. Use forwardRef if the component needs a ref
+ * 2. Use memo for performance optimization
+ * 3. Destructure props with defaults
+ * 4. Use the cn() utility to combine classes
+ *
+ * Example:
+ * ```tsx
+ * export const Component = memo(
+ *   forwardRef<HTMLDivElement, ComponentProps>(
+ *     function Component(
+ *       {
+ *         variant = "primary",
+ *         size = "default",
+ *         className,
+ *         children,
+ *         ...rest
+ *       },
+ *       ref
+ *     ) {
+ *       const componentClasses = cn(
+ *         BASE_CLASSES,
+ *         VARIANT_STYLES[variant],
+ *         SIZE_STYLES[size],
+ *         className
+ *       );
+ *
+ *       return (
+ *         <div ref={ref} className={componentClasses} {...rest}>
+ *           {children}
+ *         </div>
+ *       );
+ *     }
+ *   )
+ * );
+ *
+ * Component.displayName = "Component";
+ * ```
+ *
+ * 5. EXPORT
+ * --------------
+ * Export your component and types for use in other files
+ *
+ * Example:
+ * ```tsx
+ * export default Component;
+ * ```
+ *
+ */
 
-type Variant = "surface" | "muted" | "outline" | "ghost";
-type Padding = "none" | "xs" | "sm" | "md" | "lg";
-type Radius = "none" | "sm" | "md" | "lg" | "full";
-type Shadow = "none" | "sm" | "md";
+import { cn } from "@/lib/cn";
+import { forwardRef, memo } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-interface StyleSlots {
-  variant?: Variant;
-  padding?: Padding;
-  radius?: Radius;
-  shadow?: Shadow;
-  className?: string;
+// Replace with your component name and types
+export type YourComponentVariant = "default";
+export type YourComponentSize = "default";
+
+export interface YourComponentProps extends ComponentPropsWithoutRef<"div"> {
+  variant?: YourComponentVariant;
+  size?: YourComponentSize;
   children?: ReactNode;
 }
 
-type PolymorphicRef<T extends ElementType> = ComponentPropsWithRef<T>["ref"];
+// Define your component styles using design tokens
+const BASE_CLASSES = [
+  // Add your base classes here
+].join(" ");
 
-export type ComponentTemplateProps<T extends ElementType = "section"> = {
-  /**
-   * Render as any semantic element or custom component.
-   * Defaults to a section for grouped content.
-   */
-  as?: T;
-} & StyleSlots &
-  Omit<ComponentPropsWithoutRef<T>, keyof StyleSlots | "as">;
-
-const variantStyles: Record<Variant, string> = {
-  surface:
-    "border border-slate-200 bg-white text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100",
-  muted:
-    "border border-transparent bg-slate-50 text-slate-900 dark:bg-slate-900/60 dark:text-slate-100",
-  outline:
-    "border border-slate-200 bg-transparent text-slate-900 dark:border-slate-800 dark:text-slate-100",
-  ghost:
-    "border border-transparent bg-transparent text-slate-900 dark:text-slate-100",
+// Define variant styles
+const VARIANT_STYLES: Record<YourComponentVariant, string> = {
+  default: "",
 };
 
-const paddingStyles: Record<Padding, string> = {
-  none: "p-0",
-  xs: "p-2",
-  sm: "p-3",
-  md: "p-4",
-  lg: "p-6",
+// Define size styles
+const SIZE_STYLES: Record<YourComponentSize, string> = {
+  default: "",
 };
-
-const radiusStyles: Record<Radius, string> = {
-  none: "rounded-none",
-  sm: "rounded-sm",
-  md: "rounded-md",
-  lg: "rounded-lg",
-  full: "rounded-full",
-};
-
-const shadowStyles: Record<Shadow, string> = {
-  none: "shadow-none",
-  sm: "shadow-sm",
-  md: "shadow-md",
-};
-
-function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
-
-type ComponentTemplateComponent = <T extends ElementType = "section">(
-  props: ComponentTemplateProps<T> & { ref?: PolymorphicRef<T> }
-) => ReactElement | null;
 
 /**
- * Tailwind-ready polymorphic surface wrapper that provides consistent spacing,
- * rounded corners, and a few opinionated variants for rapid prototyping.
+ * YourComponent - Brief description
+ *
+ * @example
+ * ```tsx
+ * <YourComponent variant="default">
+ *   Content here
+ * </YourComponent>
+ * ```
  */
-export const ComponentTemplate = forwardRef(
-  <T extends ElementType = "section">(
-    {
-      as,
-      children = null,
+export const YourComponent = memo(
+  forwardRef<HTMLDivElement, YourComponentProps>(function YourComponent(
+    { variant = "default", size = "default", className, children, ...rest },
+    ref,
+  ) {
+    // Implement your component logic
+    const componentClasses = cn(
+      BASE_CLASSES,
+      VARIANT_STYLES[variant],
+      SIZE_STYLES[size],
       className,
-      variant = "surface",
-      padding = "md",
-      radius = "md",
-      shadow = "sm",
-      ...rest
-    }: ComponentTemplateProps<T>,
-    ref: PolymorphicRef<T>
-  ) => {
-    const Component = as ?? "section";
+    );
 
     return (
-      <Component
-        ref={ref}
-        {...rest}
-        className={cn(
-          "relative flex flex-col gap-3 transition-colors transition-shadow duration-200",
-          variantStyles[variant],
-          paddingStyles[padding],
-          radiusStyles[radius],
-          shadowStyles[shadow],
-          className
-        )}
-      >
+      <div ref={ref} className={componentClasses} {...rest}>
         {children}
-      </Component>
+      </div>
     );
-  }
-) as ComponentTemplateComponent;
+  }),
+);
 
-ComponentTemplate.displayName = "ComponentTemplate";
+YourComponent.displayName = "YourComponent";
 
-export default ComponentTemplate;
+export default YourComponent;
