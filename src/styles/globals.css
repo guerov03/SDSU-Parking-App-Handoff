@@ -2,7 +2,7 @@
 
 :root {
   /* ============================================
-     PRIMITIVES - Raw values (Foundation Layer)
+     PRIMITIVES - Raw values
      ============================================ */
 
   /* Colors - Alpha */
@@ -241,7 +241,7 @@
   --primitive-width-1000: 840px;
 
   /* ============================================
-     SEMANTIC TOKENS - Contextual meaning (Token Layer)
+     SEMANTIC TOKENS 
      ============================================ */
 
   /* Brand Colors */
@@ -407,22 +407,22 @@
   --semantic-width-xxxxlarge: var(--primitive-width-1000);
 
   /* ============================================
-     COMPONENT TOKENS - Component-specific (Component Layer)
+     COMPONENT TOKENS - Component-specific
      ============================================ */
 
   /* Badge Component */
   /* Badge - Colors - Primary */
   --component-badge-bg-primary: var(--semantic-brand-primary-default);
   --component-badge-text-primary: var(--semantic-text-inverse);
-  
+
   /* Badge - Colors - Secondary */
   --component-badge-bg-secondary: var(--semantic-brand-secondary-default);
   --component-badge-text-secondary: var(--semantic-text-inverse);
-  
+
   /* Badge - Colors - Neutral */
   --component-badge-bg-neutral: var(--semantic-surface-elevated);
   --component-badge-text-neutral: var(--semantic-text-primary);
-  
+
   /* Badge - Colors - Status */
   --component-badge-bg-success: var(--semantic-status-success-alpha);
   --component-badge-text-success: var(--semantic-status-success-dark);
@@ -434,7 +434,7 @@
   --component-badge-text-info: var(--semantic-status-info-dark);
   --component-badge-bg-alert: var(--semantic-accent-yellow-alpha);
   --component-badge-text-alert: var(--semantic-accent-yellow-dark);
-  
+
   /* Badge - Colors - Accents */
   --component-badge-bg-green: var(--semantic-accent-green-default);
   --component-badge-text-green: var(--semantic-text-primary);
@@ -456,7 +456,7 @@
   --component-badge-text-teal: var(--semantic-text-primary);
   --component-badge-bg-yellow: var(--semantic-accent-yellow-default);
   --component-badge-text-yellow: var(--semantic-text-primary);
-  
+
   /* Badge - Sizing */
   --component-badge-height: var(--semantic-height-xxsmall);
   --component-badge-padding-inline: var(--semantic-space-default);
@@ -464,7 +464,7 @@
   --component-badge-gap: var(--semantic-space-compact);
   --component-badge-radius: var(--semantic-radius-sm);
   --component-badge-icon-size: var(--semantic-icon-small);
-  
+
   /* Badge - Typography */
   --component-badge-font-size: var(--semantic-text-size-caption);
   --component-badge-font-weight: var(--semantic-text-weight-regular);
@@ -480,45 +480,75 @@
   --component-button-icon-primary-default: var(--semantic-text-inverse);
   --component-button-icon-primary-hover: var(--semantic-text-inverse);
   --component-button-icon-primary-disabled: var(--semantic-text-disabled);
-  
+
   /* Button - Secondary Variant */
-  --component-button-bg-secondary-default: var(--semantic-brand-secondary-default);
+  --component-button-bg-secondary-default: var(
+    --semantic-brand-secondary-default
+  );
   --component-button-bg-secondary-hover: var(--semantic-brand-secondary-hover);
-  --component-button-bg-secondary-active: var(--semantic-brand-secondary-active);
+  --component-button-bg-secondary-active: var(
+    --semantic-brand-secondary-active
+  );
   --component-button-text-secondary-default: var(--semantic-text-inverse);
   --component-button-text-secondary-hover: var(--semantic-text-inverse);
   --component-button-text-secondary-disabled: var(--semantic-text-disabled);
   --component-button-icon-secondary-default: var(--semantic-text-inverse);
   --component-button-icon-secondary-hover: var(--semantic-text-inverse);
   --component-button-icon-secondary-disabled: var(--semantic-text-disabled);
-  
+
   /* Button - Outline Variant */
   --component-button-bg-outline-default: var(--semantic-surface-transparent);
   --component-button-bg-outline-hover: var(--semantic-surface-hover);
   --component-button-bg-outline-active: var(--semantic-brand-primary-hover);
-  --component-button-border-outline-default: var(--semantic-brand-secondary-default);
-  --component-button-border-outline-hover: var(--semantic-brand-secondary-hover);
+  --component-button-border-outline-default: var(
+    --semantic-brand-secondary-default
+  );
+  --component-button-border-outline-hover: var(
+    --semantic-brand-secondary-hover
+  );
   --component-button-border-outline-active: var(--semantic-surface-transparent);
-  --component-button-text-outline-default: var(--semantic-brand-secondary-default);
+  --component-button-text-outline-default: var(
+    --semantic-brand-secondary-default
+  );
   --component-button-text-outline-hover: var(--semantic-brand-secondary-hover);
   --component-button-text-outline-active: var(--semantic-text-inverse);
-  --component-button-icon-outline-default: var(--semantic-brand-secondary-default);
+  --component-button-icon-outline-default: var(
+    --semantic-brand-secondary-default
+  );
   --component-button-icon-outline-hover: var(--semantic-brand-secondary-hover);
   --component-button-icon-outline-active: var(--semantic-surface-transparent);
-  
+
   /* Button - Destructive Variant */
-  --component-button-bg-destructive-default: var(--semantic-surface-transparent);
+  --component-button-bg-destructive-default: var(
+    --semantic-surface-transparent
+  );
   --component-button-bg-destructive-hover: var(--semantic-status-error-alpha);
-  --component-button-bg-destructive-disabled: var(--semantic-surface-transparent);
-  --component-button-border-destructive-default: var(--semantic-status-error-default);
-  --component-button-border-destructive-hover: var(--semantic-status-error-dark);
-  --component-button-border-destructive-disabled: var(--semantic-status-error-alpha);
-  --component-button-text-destructive-default: var(--semantic-status-error-default);
+  --component-button-bg-destructive-disabled: var(
+    --semantic-surface-transparent
+  );
+  --component-button-border-destructive-default: var(
+    --semantic-status-error-default
+  );
+  --component-button-border-destructive-hover: var(
+    --semantic-status-error-dark
+  );
+  --component-button-border-destructive-disabled: var(
+    --semantic-status-error-alpha
+  );
+  --component-button-text-destructive-default: var(
+    --semantic-status-error-default
+  );
   --component-button-text-destructive-hover: var(--semantic-status-error-dark);
-  --component-button-text-destructive-disabled: var(--semantic-status-error-alpha);
-  --component-button-icon-destructive-default: var(--semantic-status-error-default);
+  --component-button-text-destructive-disabled: var(
+    --semantic-status-error-alpha
+  );
+  --component-button-icon-destructive-default: var(
+    --semantic-status-error-default
+  );
   --component-button-icon-destructive-hover: var(--semantic-status-error-dark);
-  --component-button-icon-destructive-disabled: var(--semantic-status-error-alpha);
+  --component-button-icon-destructive-disabled: var(
+    --semantic-status-error-alpha
+  );
 
   /* Button - Google Variant */
   --component-button-bg-google-default: transparent;
@@ -530,7 +560,7 @@
   --component-button-text-google-default: var(--semantic-text-primary);
   --component-button-text-google-hover: var(--semantic-text-primary);
   --component-button-text-google-active: var(--semantic-text-primary);
-  
+
   /* Button - Sizing */
   --component-button-height-default: var(--semantic-height-medium);
   --component-button-padding-inline: var(--semantic-space-default);
@@ -541,7 +571,7 @@
   --component-button-icon-size: var(--semantic-icon-medium);
   --component-button-icon-only-size-sm: var(--semantic-height-small);
   --component-button-icon-only-size-md: var(--semantic-height-medium);
-  
+
   /* Button - Typography */
   --component-button-font-size: var(--semantic-text-size-body);
   --component-button-font-weight: var(--semantic-text-weight-regular);
@@ -600,7 +630,7 @@
   --component-filter-padding-block: var(--semantic-space-default);
   --component-filter-padding-inline: var(--semantic-space-comfortable);
   --component-filter-radius: var(--semantic-radius-lg);
-  
+
   --component-selector-bg-default: var(--semantic-surface-elevated);
   --component-selector-bg-hover: var(--semantic-surface-elevated);
   --component-selector-border-default: var(--semantic-border-subtle);

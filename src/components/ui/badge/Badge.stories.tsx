@@ -11,26 +11,58 @@ const DotIcon = () => (
 );
 
 const CheckIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+      clipRule="evenodd"
+    />
   </svg>
 );
 
 const AlertIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+      clipRule="evenodd"
+    />
   </svg>
 );
 
 const InfoIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+      clipRule="evenodd"
+    />
   </svg>
 );
 
 const CloseIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path
+      fillRule="evenodd"
+      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+      clipRule="evenodd"
+    />
   </svg>
 );
 
@@ -78,8 +110,28 @@ const DISMISSIBLE_VARIANTS: BadgeVariant[] = [
 ];
 
 // Group variants by category for better organization
-const SEMANTIC_VARIANTS: BadgeVariant[] = ["primary", "secondary", "neutral", "success", "warning", "error", "info", "alert"];
-const COLOR_VARIANTS: BadgeVariant[] = ["green", "indigo", "navy", "teal", "purple", "pink", "orange", "sand", "yellow", "red"];
+const SEMANTIC_VARIANTS: BadgeVariant[] = [
+  "primary",
+  "secondary",
+  "neutral",
+  "success",
+  "warning",
+  "error",
+  "info",
+  "alert",
+];
+const COLOR_VARIANTS: BadgeVariant[] = [
+  "green",
+  "indigo",
+  "navy",
+  "teal",
+  "purple",
+  "pink",
+  "orange",
+  "sand",
+  "yellow",
+  "red",
+];
 
 const SEMANTIC_DISMISSIBLE: BadgeVariant[] = [
   "primary-dismissible",
@@ -225,7 +277,8 @@ export const SemanticVariants: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Semantic variants for common UI states: primary, secondary, neutral, success, warning, error, info, alert.",
+        story:
+          "Semantic variants for common UI states: primary, secondary, neutral, success, warning, error, info, alert.",
       },
     },
   },
@@ -248,7 +301,8 @@ export const ColorVariants: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Color variants for flexible categorization and tagging: green, indigo, navy, teal, purple, pink, orange, sand, yellow, red.",
+        story:
+          "Color variants for flexible categorization and tagging: green, indigo, navy, teal, purple, pink, orange, sand, yellow, red.",
       },
     },
   },
@@ -284,7 +338,8 @@ export const WithTrailingIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Badges can display an icon after the text, useful for dismissible badges.",
+        story:
+          "Badges can display an icon after the text, useful for dismissible badges.",
       },
     },
   },
@@ -371,7 +426,8 @@ export const TagCollection: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Example of using badges as tags with different color variants for categorization.",
+        story:
+          "Example of using badges as tags with different color variants for categorization.",
       },
     },
   },
@@ -384,14 +440,14 @@ export const AllDismissibleVariants: Story = {
   render: (args) => (
     <div className="flex max-w-[600px] flex-wrap items-center gap-[var(--component-page-gap-tight)]">
       {DISMISSIBLE_VARIANTS.map((variant) => (
-        <Badge 
-          key={variant} 
-          {...args} 
+        <Badge
+          key={variant}
+          {...args}
           variant={variant}
           onDismiss={() => console.log(`${variant} dismissed`)}
         >
-          {variant.replace("-dismissible", "").charAt(0).toUpperCase() + 
-           variant.replace("-dismissible", "").slice(1)}
+          {variant.replace("-dismissible", "").charAt(0).toUpperCase() +
+            variant.replace("-dismissible", "").slice(1)}
         </Badge>
       ))}
     </div>
@@ -400,7 +456,8 @@ export const AllDismissibleVariants: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "All 18 dismissible badge variants with built-in close icons. Click any badge to trigger the dismiss action.",
+        story:
+          "All 18 dismissible badge variants with built-in close icons. Click any badge to trigger the dismiss action.",
       },
     },
   },
@@ -413,13 +470,13 @@ export const SemanticDismissible: Story = {
   render: () => (
     <div className="flex max-w-[500px] flex-wrap items-center gap-[var(--component-page-gap-tight)]">
       {SEMANTIC_DISMISSIBLE.map((variant) => (
-        <Badge 
-          key={variant} 
+        <Badge
+          key={variant}
           variant={variant}
           onDismiss={() => console.log(`${variant} dismissed`)}
         >
-          {variant.replace("-dismissible", "").charAt(0).toUpperCase() + 
-           variant.replace("-dismissible", "").slice(1)}
+          {variant.replace("-dismissible", "").charAt(0).toUpperCase() +
+            variant.replace("-dismissible", "").slice(1)}
         </Badge>
       ))}
     </div>
@@ -428,7 +485,8 @@ export const SemanticDismissible: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Semantic dismissible variants for status-based tags that can be removed by users.",
+        story:
+          "Semantic dismissible variants for status-based tags that can be removed by users.",
       },
     },
   },
@@ -441,13 +499,13 @@ export const ColorDismissible: Story = {
   render: () => (
     <div className="flex max-w-[500px] flex-wrap items-center gap-[var(--component-page-gap-tight)]">
       {COLOR_DISMISSIBLE.map((variant) => (
-        <Badge 
-          key={variant} 
+        <Badge
+          key={variant}
           variant={variant}
           onDismiss={() => console.log(`${variant} dismissed`)}
         >
-          {variant.replace("-dismissible", "").charAt(0).toUpperCase() + 
-           variant.replace("-dismissible", "").slice(1)}
+          {variant.replace("-dismissible", "").charAt(0).toUpperCase() +
+            variant.replace("-dismissible", "").slice(1)}
         </Badge>
       ))}
     </div>
@@ -456,7 +514,8 @@ export const ColorDismissible: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Color dismissible variants for category tags that can be removed by users.",
+        story:
+          "Color dismissible variants for category tags that can be removed by users.",
       },
     },
   },
@@ -469,11 +528,27 @@ export const DismissibleDemo: Story = {
   render: function DismissibleDemoComponent() {
     const [tags, setTags] = React.useState([
       { id: 1, label: "React", variant: "green-dismissible" as BadgeVariant },
-      { id: 2, label: "TypeScript", variant: "navy-dismissible" as BadgeVariant },
-      { id: 3, label: "Next.js", variant: "purple-dismissible" as BadgeVariant },
+      {
+        id: 2,
+        label: "TypeScript",
+        variant: "navy-dismissible" as BadgeVariant,
+      },
+      {
+        id: 3,
+        label: "Next.js",
+        variant: "purple-dismissible" as BadgeVariant,
+      },
       { id: 4, label: "Tailwind", variant: "teal-dismissible" as BadgeVariant },
-      { id: 5, label: "Active", variant: "success-dismissible" as BadgeVariant },
-      { id: 6, label: "Warning", variant: "warning-dismissible" as BadgeVariant },
+      {
+        id: 5,
+        label: "Active",
+        variant: "success-dismissible" as BadgeVariant,
+      },
+      {
+        id: 6,
+        label: "Warning",
+        variant: "warning-dismissible" as BadgeVariant,
+      },
     ]);
 
     const removeTag = (id: number) => {
@@ -508,7 +583,8 @@ export const DismissibleDemo: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Interactive example showing dismissible badges being removed from the UI when clicked.",
+        story:
+          "Interactive example showing dismissible badges being removed from the UI when clicked.",
       },
     },
   },
@@ -520,8 +596,16 @@ export const DismissibleDemo: Story = {
 export const IconOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-[var(--component-page-gap-tight)]">
-      <Badge variant="success" leadingIcon={<CheckIcon />} aria-label="Success" />
-      <Badge variant="warning" leadingIcon={<AlertIcon />} aria-label="Warning" />
+      <Badge
+        variant="success"
+        leadingIcon={<CheckIcon />}
+        aria-label="Success"
+      />
+      <Badge
+        variant="warning"
+        leadingIcon={<AlertIcon />}
+        aria-label="Warning"
+      />
       <Badge variant="error" leadingIcon={<AlertIcon />} aria-label="Error" />
       <Badge variant="info" leadingIcon={<InfoIcon />} aria-label="Info" />
       <Badge variant="primary" leadingIcon={<DotIcon />} aria-label="Active" />
@@ -531,7 +615,8 @@ export const IconOnly: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Icon-only badges should include an aria-label for accessibility.",
+        story:
+          "Icon-only badges should include an aria-label for accessibility.",
       },
     },
   },
@@ -583,16 +668,28 @@ export const RealWorldExamples: Story = {
           Selected Parking Structures (Dismissible):
         </span>
         <div className="flex flex-wrap gap-[var(--component-page-gap-tight)]">
-          <Badge variant="green-dismissible" onDismiss={() => console.log("Removed Structure 1")}>
+          <Badge
+            variant="green-dismissible"
+            onDismiss={() => console.log("Removed Structure 1")}
+          >
             Structure 1
           </Badge>
-          <Badge variant="orange-dismissible" onDismiss={() => console.log("Removed Structure 7")}>
+          <Badge
+            variant="orange-dismissible"
+            onDismiss={() => console.log("Removed Structure 7")}
+          >
             Structure 7
           </Badge>
-          <Badge variant="pink-dismissible" onDismiss={() => console.log("Removed Lot 5")}>
+          <Badge
+            variant="pink-dismissible"
+            onDismiss={() => console.log("Removed Lot 5")}
+          >
             Lot 5
           </Badge>
-          <Badge variant="teal-dismissible" onDismiss={() => console.log("Removed Lot 12")}>
+          <Badge
+            variant="teal-dismissible"
+            onDismiss={() => console.log("Removed Lot 12")}
+          >
             Lot 12
           </Badge>
         </div>
@@ -604,13 +701,22 @@ export const RealWorldExamples: Story = {
           Active Filters (Click to Remove):
         </span>
         <div className="flex flex-wrap gap-[var(--component-page-gap-tight)]">
-          <Badge variant="primary-dismissible" onDismiss={() => console.log("Removed Available filter")}>
+          <Badge
+            variant="primary-dismissible"
+            onDismiss={() => console.log("Removed Available filter")}
+          >
             Available
           </Badge>
-          <Badge variant="secondary-dismissible" onDismiss={() => console.log("Removed Near Me filter")}>
+          <Badge
+            variant="secondary-dismissible"
+            onDismiss={() => console.log("Removed Near Me filter")}
+          >
             Near Me
           </Badge>
-          <Badge variant="info-dismissible" onDismiss={() => console.log("Removed Covered filter")}>
+          <Badge
+            variant="info-dismissible"
+            onDismiss={() => console.log("Removed Covered filter")}
+          >
             Covered
           </Badge>
         </div>
@@ -621,7 +727,8 @@ export const RealWorldExamples: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: "Real-world examples showing how badges can be used in a parking app context, including dismissible variants for removable tags and filters.",
+        story:
+          "Real-world examples showing how badges can be used in a parking app context, including dismissible variants for removable tags and filters.",
       },
     },
   },

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     width: "device-width",
     initialScale: 1,
     maximumScale: 1,
-    userScalable: false, // Prevent zoom on mobile for app-like experience
+    userScalable: false, // Prevent zoom on mobile
   },
 };
 
@@ -57,6 +57,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   // Body base styles using component and semantic tokens
   // Optimized for mobile devices with proper viewport constraints
   const bodyClassName = [
@@ -64,14 +65,14 @@ export default function RootLayout({
     roboto.variable,
     robotoMono.variable,
     
-    // Mobile-optimized layout foundation
+    // Mobile layout foundation
     "h-screen",
     "min-w-full",
     "w-screen", // Full screen width
     "max-w-[100vw]", // Prevent horizontal overflow
     "overflow-x-hidden", // Disable horizontal scrolling
     
-    // Background using component token
+    // Background
     "bg-[var(--component-page-bg)]",
     
     // Typography defaults using semantic tokens
@@ -82,11 +83,14 @@ export default function RootLayout({
   ].join(" ");
 
   // Main layout container using component page tokens
-  // Mobile-first design: fills entire mobile screen without exceeding viewport
+  // Mobile first design: fills entire mobile screen without exceeding viewport
   const layoutClassName = [
     // Layout structure
+    "w-full",
     "flex",
     "flex-col",
+    "items-center",
+    "gap-[var(--component-page-gap-default)]", // Spacing between child elements
     
     // Mobile viewport height (fills screen when no scrolling)
     "min-h-screen",
@@ -97,10 +101,9 @@ export default function RootLayout({
     "max-w-[100vw]", // Never exceed viewport width
     "overflow-x-hidden", // Prevent horizontal scroll
     
-    // Spacing using component page tokens
-    "gap-[var(--component-page-gap-section)]",
-    "px-[var(--component-page-padding-inline)]",
-    "py-[var(--component-page-padding-block)]",
+    // Padding using component tokens
+    "px-[var(--component-page-padding-inline)]", // Horizontal padding
+    "py-[var(--component-page-padding-block)]", // Vertical padding
     
     // Typography hierarchy - Headings
     "[&_h1]:text-[length:var(--semantic-text-size-h1)]",
@@ -127,13 +130,13 @@ export default function RootLayout({
     
     // Interactive elements - Links
     "[&_a]:text-[color:var(--semantic-text-link)]",
-    "[&_a]:font-[var(--semantic-text-weight-semibold)]",,
+    "[&_a]:font-[var(--semantic-text-weight-regular)]",
     "[&_a:hover]:opacity-80",
     "[&_a]:transition-opacity",
     
     // State-specific text - Error
     "[&_.error]:text-[color:var(--semantic-text-error)]",
-    "[&_.error]:font-[var(--semantic-text-weight-semibold)]",
+    "[&_.error]:font-[var(--semantic-text-weight-regular)]",
     
     // State-specific text - Secondary/Muted
     "[&_.secondary]:text-[color:var(--semantic-text-secondary)]",

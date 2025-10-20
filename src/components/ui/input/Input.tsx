@@ -1,9 +1,15 @@
 import { cn } from "@/lib/cn";
-import { forwardRef, memo, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import {
+  forwardRef,
+  memo,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from "react";
 
 export type InputSize = "default";
 
-export interface InputProps extends Omit<ComponentPropsWithoutRef<"input">, "size"> {
+export interface InputProps
+  extends Omit<ComponentPropsWithoutRef<"input">, "size"> {
   size?: InputSize;
   error?: boolean;
   leadingIcon?: ReactNode;
@@ -16,33 +22,33 @@ const BASE_CLASSES = [
   "flex items-center",
   "w-full",
   "gap-[var(--component-input-gap-default)]",
-  
+
   // Shape & Border - Using solid border style
   "rounded-[var(--component-input-radius)]",
   "border",
   "border-solid",
-  
+
   // Typography
   "text-[length:var(--component-input-font-size)]",
   "font-[var(--component-input-font-weight)]",
   "leading-none",
-  
+
   // Transitions
   "transition-all duration-150",
-  
+
   // Default State - Background & Border Colors
   "bg-[var(--component-input-bg-default)]",
   "text-[var(--component-input-text-default)]",
   "border-[var(--component-input-border-default)]",
-  
+
   // Hover State
   "hover:bg-[var(--component-input-bg-hover)]",
   "hover:border-[var(--component-input-border-hover)]",
-  
-  // Focus Within State (when input inside is focused)
+
+  // Focus Within State
   "focus-within:border-2",
   "focus-within:border-[var(--component-input-border-focus)]",
-  
+
   // Disabled State
   "has-[:disabled]:bg-[var(--component-input-bg-disabled)]",
   "has-[:disabled]:cursor-not-allowed",
@@ -64,33 +70,33 @@ const INPUT_FIELD_CLASSES = [
   "bg-transparent",
   "border-none",
   "outline-none",
-  
+
   // Typography inheritance
   "text-[length:var(--component-input-font-size)]",
   "font-[var(--component-input-font-weight)]",
   "text-[var(--component-input-text-default)]",
   "leading-none",
-  
+
   // Placeholder
   "placeholder:text-[var(--component-input-text-disabled)]",
-  
+
   // Disabled state
   "disabled:cursor-not-allowed",
   "disabled:text-[var(--component-input-text-disabled)]",
 ].join(" ");
 
-// Icon wrapper styles - Fixed size at 20px
+// Icon wrapper style
 const ICON_WRAPPER_CLASSES = [
   // Layout
   "inline-flex shrink-0 items-center justify-center",
-  
+
   // Fixed sizing - 20px icons
   "h-5",
   "w-5",
-  
+
   // Color
   "text-[var(--component-input-text-default)]",
-  
+
   // SVG child sizing
   "[&>svg]:h-full [&>svg]:w-full",
 ].join(" ");
@@ -132,14 +138,14 @@ export const Input = memo(
       className,
       ...rest
     },
-    ref
+    ref,
   ) {
     // Compute container classes
     const containerClasses = cn(
       BASE_CLASSES,
       SIZE_STYLES[size],
       error && ERROR_CLASSES,
-      className
+      className,
     );
 
     return (
@@ -160,7 +166,7 @@ export const Input = memo(
         {trailingIcon && <IconWrapper icon={trailingIcon} />}
       </div>
     );
-  })
+  }),
 );
 
 Input.displayName = "Input";

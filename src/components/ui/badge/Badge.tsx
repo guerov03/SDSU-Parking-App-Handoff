@@ -1,5 +1,10 @@
 import { cn } from "@/lib/cn";
-import { forwardRef, memo, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import {
+  forwardRef,
+  memo,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from "react";
 
 export type BadgeVariant =
   | "primary"
@@ -20,7 +25,7 @@ export type BadgeVariant =
   | "sand"
   | "yellow"
   | "red"
-  // Dismissible variants (with built-in close icon)
+  // Dismissible variants
   | "primary-dismissible"
   | "secondary-dismissible"
   | "neutral-dismissible"
@@ -53,12 +58,12 @@ const BASE_CLASSES = [
   "inline-flex items-center",
   "min-h-[var(--component-badge-height)]",
   "gap-[var(--component-badge-gap)]",
-  
+
   // Shape & Border
   "rounded-[var(--component-badge-radius)]",
   "px-[var(--component-badge-padding-inline)]",
   "py-[var(--component-badge-padding-block)]",
-  
+
   // Typography
   "text-[length:var(--component-badge-font-size)]",
   "font-[var(--component-badge-font-weight)]",
@@ -70,23 +75,29 @@ const BASE_CLASSES = [
 const ICON_WRAPPER_CLASSES = [
   // Layout
   "inline-flex shrink-0 items-center justify-center",
-  
+
   // Sizing using component tokens
   "h-[var(--component-badge-icon-size)]",
   "w-[var(--component-badge-icon-size)]",
-  
+
   // SVG child sizing
   "[&>svg]:h-full [&>svg]:w-full",
 ].join(" ");
 
 // Close icon component for dismissible variants
 const CloseIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-    <path 
-      d="M11.6092 6.39077L6.39077 11.6092M6.39077 6.39077L11.6092 11.6092M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 18 18"
+    fill="none"
+  >
+    <path
+      d="M11.6092 6.39077L6.39077 11.6092M6.39077 6.39077L11.6092 11.6092M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>
@@ -167,7 +178,7 @@ const VARIANT_STYLES: Record<BadgeVariant, string> = {
     "bg-[var(--component-badge-bg-red)]",
     "text-[var(--component-badge-text-red)]",
   ].join(" "),
-  
+
   // Dismissible variants (same styling as base variants)
   "primary-dismissible": [
     "bg-[var(--component-badge-bg-primary)]",
@@ -253,12 +264,12 @@ IconWrapper.displayName = "IconWrapper";
 
 /**
  * Badge Component
- * 
+ *
  * ```tsx
  * // Standard badges
  * <Badge variant="success">Active</Badge>
  * <Badge variant="warning" leadingIcon={<AlertIcon />}>Warning</Badge>
- * 
+ *
  * // Dismissible badges
  * <Badge variant="primary-dismissible" onDismiss={() => console.log('dismissed')}>
  *   Removable Tag
@@ -270,19 +281,27 @@ IconWrapper.displayName = "IconWrapper";
  */
 export const Badge = memo(
   forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
-    { children, className, variant = "neutral", leadingIcon, trailingIcon, onDismiss, ...props },
-    ref
+    {
+      children,
+      className,
+      variant = "neutral",
+      leadingIcon,
+      trailingIcon,
+      onDismiss,
+      ...props
+    },
+    ref,
   ) {
     // Check if this is a dismissible variant
     const isDismissible = variant.endsWith("-dismissible");
-    
+
     // Compute classes once using the variant styles from CSS custom properties
     const variantClass = VARIANT_STYLES[variant];
     const badgeClasses = cn(
-      BASE_CLASSES, 
-      variantClass, 
+      BASE_CLASSES,
+      variantClass,
       isDismissible && "cursor-pointer hover:opacity-80 transition-opacity",
-      className
+      className,
     );
 
     // Handle click for dismissible badges
@@ -315,7 +334,7 @@ export const Badge = memo(
         )}
       </span>
     );
-  })
+  }),
 );
 
 Badge.displayName = "Badge";
