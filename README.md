@@ -72,39 +72,39 @@ reactrepo-group3-sdsu-parking-app/
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      globals.css                             │
-│                   (Design Token Layers)                      │
+│                      globals.css                            │
+│                   (Design Token Layers)                     │
 ├─────────────────────────────────────────────────────────────┤
-│                                                               │
+│                                                             │
 │  ┌───────────────────────────────────────────────────────┐  │
 │  │  Layer 1: Primitive Tokens                            │  │
 │  │  • Colors: --color-gray-50 through --color-gray-950   │  │
 │  │  • Spacing: --spacing-xs, --spacing-sm, etc.          │  │
 │  │  • Typography: --font-size-*, --font-weight-*         │  │
 │  └───────────────────────────────────────────────────────┘  │
-│                          ↓                                    │
+│                          ↓                                  │
 │  ┌───────────────────────────────────────────────────────┐  │
 │  │  Layer 2: Semantic Tokens                             │  │
 │  │  • --semantic-text-primary                            │  │
 │  │  • --semantic-bg-default                              │  │
 │  │  • --semantic-border-default                          │  │
 │  └───────────────────────────────────────────────────────┘  │
-│                          ↓                                    │
+│                          ↓                                  │
 │  ┌───────────────────────────────────────────────────────┐  │
 │  │  Layer 3: Component Tokens                            │  │
 │  │  • --component-button-bg-primary-default              │  │
 │  │  • --component-input-border-default                   │  │
 │  │  • --component-badge-bg-success                       │  │
 │  └───────────────────────────────────────────────────────┘  │
-│                                                               │
-└───────────────────────────┬───────────────────────────────────┘
+│                                                             │
+└───────────────────────────┬─────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                    UI Components                             │
-│  (Button, Badge, Input, etc.)                                │
-│  • Use component tokens via CSS variables                    │
-│  • Array-based class organization                            │
-│  • TypeScript for type safety                                │
+│                    UI Components                            │
+│  (Button, Badge, Input, etc.)                               │
+│  • Use component tokens via CSS variables                   │
+│  • Array-based class organization                           │
+│  • TypeScript for type safety                               │
 └─────────────────────────────────────────────────────────────┘
 ```
 
