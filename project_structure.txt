@@ -32718,7 +32718,7 @@ types
 favicon.ico
 globals.css
 layout.tsx
-page.tsx
+RealtimeParkingLots.tsx
 
 ./src/components:
 forms

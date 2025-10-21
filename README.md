@@ -372,3 +372,5 @@ This project is part of CS250 Fall 2025 at SDSU.
 Group 3 - SDSU Parking App
 
 Repository: [ReactRepo_Group3_SDSU-Parking-App](https://github.com/jeffbradley4177/ReactRepo_Group3_SDSU-Parking-App)
+
+Current Supabase Project: You will need likely help in getting ownership, or copying the data to your own -  [Supabase-Database](https://supabase.com/dashboard/project/tiptomffqqzcuwqabfry)
