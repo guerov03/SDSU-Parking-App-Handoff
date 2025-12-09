@@ -4,7 +4,7 @@ import { useState } from "react";
 import ParkingMapDisplay from "@/components/ParkingMapDisplay";
 import ParkingLotForm from "@/components/ParkingLotForm";
 import RealtimeParkingLots from "@/components/RealtimeParkingLots";
-import type { ParkingLot as FormParkingLot } from "@/lib/parking-validation";
+import type { ParkingLot } from "@/lib/parking-validation"; 
 
 interface ParkingLotSectionProps 
 {
@@ -13,32 +13,32 @@ interface ParkingLotSectionProps
 
 export default function ParkingLotSection({ serverData }: ParkingLotSectionProps) 
 {
-  const [selectedLot, setSelectedLot] = useState<{
-    name: string;
-    capacity: number;
-    location: string;
-    latitude?: number;
-    longitude?: number;
-  } | null>(null);
+  const [selectedLot, setSelectedLot] = useState<ParkingLot | null>(null);
 
-  const handleFormSubmit = async (data: Omit<FormParkingLot, "id">) => 
+  const handleFormSubmit = async (data: Omit<ParkingLot, "id">) => 
     { // display the newly added lot after submission
     setSelectedLot({
       name: data.name,
       capacity: data.capacity,
+      available: data.available,
       location: data.location,
       latitude: data.latitude,
       longitude: data.longitude,
-    });
+    } as ParkingLot);
   };
-
   const handleLotClick = (lot: any) => 
     {
+      const capacity = (lot.TotalSpaces ?? lot.totalspaces ?? lot.capacity) as number;
+      const taken = (lot.TakenSpaces ?? lot.takenspaces ?? lot.taken_spaces) as number;
+      const name = (lot.LotNumber ?? lot.lotnumber ?? lot.name) as string;
+      const available = (lot.available_spaces ?? (capacity as number) - (taken as number)) as number;
+
     setSelectedLot({
-      name: (lot.LotNumber ?? lot.lotnumber ?? lot.name) as string,
-      capacity: (lot.TotalSpaces ?? lot.totalspaces ?? lot.capacity) as number,
+      name: name as string,
+      capacity: capacity as number,
       location: (lot.location ?? "No location provided") as string,
       latitude: lot.latitude,
+      available: available,
       longitude: lot.longitude,
     });
   };

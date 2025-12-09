@@ -1,0 +1,75 @@
+// TO create teh table needed to work the parking-lot data page
+
+CREATE TABLE public.parkinglots (
+    id uuid NOT NULL DEFAULT uuid_generate_v4(),
+    name varchar(100) NOT NULL,
+    capacity integer NOT NULL,
+    taken_spaces integer NOT NULL,
+    location varchar(150) NOT NULL,
+    latitude double precision NULL,
+    longitude double precision NULL,
+    created_at timestamp with time zone NOT NULL DEFAULT now(),
+    CONSTRAINT parkinglots_pkey PRIMARY KEY (id),
+    CONSTRAINT parkinglots_name_length CHECK (char_length(name) <= 100),
+    CONSTRAINT parkinglots_location_length CHECK (char_length(location) <= 150),
+    CONSTRAINT parkinglots_capacity_positive CHECK (capacity > 0), -- Must be > 0
+    CONSTRAINT parkinglots_taken_positive CHECK (taken_spaces >= 0), -- Cannot be negative
+    CONSTRAINT parkinglots_taken_less_than_capacity CHECK (taken_spaces <= capacity), -- Cannot exceed total capacity
+    
+    CONSTRAINT parkinglots_latitude_range CHECK (latitude IS NULL OR (latitude >= -90 AND latitude <= 90)),
+    CONSTRAINT parkinglots_longitude_range CHECK (longitude IS NULL OR (longitude >= -180 AND longitude <= 180))
+);
+
+-- Enable RLS for security
+ALTER TABLE public.parkinglots ENABLE ROW LEVEL SECURITY;
+
+-- Policy 1: Allow all users to read the parking lot data
+CREATE POLICY "Enable SELECT for all users"
+ON public.parkinglots FOR SELECT
+TO public
+USING (true);
+
+-- Policy 2: Allow authenticated users to insert/update the parking data
+CREATE POLICY "Enable INSERT for authenticated users"
+ON public.parkinglots FOR INSERT
+TO authenticated
+WITH CHECK (true);
+
+CREATE POLICY "Enable UPDATE for authenticated users"
+ON public.parkinglots FOR UPDATE
+TO authenticated
+USING (true);
+
+CREATE VIEW public.parking_lots_with_available AS
+SELECT
+    id,
+    name,
+    location,
+    latitude,
+    longitude,
+    capacity,
+    taken_spaces,
+    -- Calculates the 'Available Spaces' field for the frontend
+    capacity - taken_spaces AS available_spaces, 
+    created_at
+FROM
+    public.parkinglots;
+
+// Example of creating a parking lot in sql
+
+INSERT INTO public.parkinglots (
+    name,
+    location,
+    latitude,
+    longitude,
+    capacity,
+    taken_spaces
+)
+VALUES (
+    'Parking 1',
+    '55500 Campanile Drive, San Diego, CA 92182',
+    32.7758,          
+    117.0699,       
+    500,           
+    0              
+);

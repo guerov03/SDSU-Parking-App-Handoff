@@ -1,33 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { ParkingLot } from "@/lib/parking-validation";
 
 interface ParkingMapDisplayProps {
-  selectedLot?: {
-    name: string;
-    capacity: number;
-    location: string;
-    latitude?: number;
-    longitude?: number;
-  } | null;
+  selectedLot: ParkingLot | null;
 }
 
 export default function ParkingMapDisplay({ selectedLot }: ParkingMapDisplayProps) {
   const [iframeKey, setIframeKey] = useState(0);
+  
+  useEffect(() => 
+    {
+      if (selectedLot?.latitude && selectedLot?.longitude) 
+      {
+        setIframeKey(prev => prev + 1);
+      } 
+  }, [selectedLot]);
 
   // SDSU map URL from Concept3D
-  const baseMapUrl = "https://map.concept3d.com/?id=801#!ct/15205,15544,40419,68621,68622,97540,83801?sbc/?mc/32.775056650791,-117.07214713097?z/17?lvl/0?share";
+  const baseMapUrl = "https://map.concept3d.com/?id=801#!";
+  const layerDefinitions = "ct/15205,15544,40419,68621,68622,97540,83801?sbc/";
+  const defaultMapView = "mc/32.775056650791,-117.07214713097?z/17?lvl/0?share";
 
-  // Build map URL with location field if lot is clicked on
   const getMapUrl = () => 
     {
-    if (!selectedLot?.latitude || !selectedLot?.longitude) {
-      return baseMapUrl;
+    if (!selectedLot?.latitude || !selectedLot?.longitude) 
+    {
+      return `${baseMapUrl}${layerDefinitions}${defaultMapView}`;
     }
 
     const lat = selectedLot.latitude;
     const lon = selectedLot.longitude;
-    return `${baseMapUrl}?lat=${lat}&lon=${lon}`;
+    const zoom = 19;
+
+    const dynamicMapParams = `${layerDefinitions}mc/${lat},${lon}?z/${zoom}?lvl/0?share`;
+    return `${baseMapUrl}${dynamicMapParams}`;
   };
 
   const mapUrl = getMapUrl();
@@ -57,15 +65,6 @@ export default function ParkingMapDisplay({ selectedLot }: ParkingMapDisplayProp
           loading="lazy"
           title="SDSU Parking Lot Map"
         />
-      </div>
-
-      <div className="p-2 border-t border-gray-200 bg-gray-50">
-        <button
-          onClick={() => setIframeKey((prev) => prev + 1)}
-          className="text-xs text-blue-600 hover:text-blue-800 underline"
-        >
-          Refresh Map
-        </button>
       </div>
       
       {selectedLot && (
