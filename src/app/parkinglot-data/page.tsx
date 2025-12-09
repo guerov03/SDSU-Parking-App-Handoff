@@ -1,37 +1,51 @@
-//This folder is what actually calls, and displays the current parking lot data
-//This runs on the server-side with the initial data fetch
+// Displays the current parking lot data aka the table, map, and form
+// go to /parkinglot-data to visit this from local host
 
 import { createClient } from "@/lib/supabase/server-client";
-import RealtimeParkingLots from '@/components/RealtimeParkingLots';
+import ParkingLotSection from './ParkingLotSection';
 import { unstable_noStore as noStore } from "next/cache"; // Import noStore
 
 // This function runs ON THE SERVER
 async function getInitialParkingLots() {
   noStore(); // <-- This disables caching
-  const supabase = await createClient();
-  const { data, error } = await supabase.from("ParkingLots").select();
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.from("parkinglots").select();
 
-  if (error) {
-    console.error("Error fetching parking lots:", error);
+    if (error) {
+      console.error("Error fetching parking lots:", error);
+      return { data: [], error: error.message };
+    }
+
+    console.log("Server fetched data:", data);
+
+    return { data: data ?? [], error: null };
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : "Failed to fetch parking lots";
+    console.error("Exception fetching parking lots:", err);
+    return { data: [], error: errorMessage };
   }
-
-  // Log the data to be sure
-  console.log("Server fetched data:", data);
-
-  return data ?? [];
 }
 
-// This is your main page, it's a Server Component
-export default async function Home() {
-  // 1. Fetch the data on the server
-  const initialParkingLots = await getInitialParkingLots();
 
-  // 2. Pass the server data to the client component
-  // This removes all the "extra stuff" you didn't want.
-  return (
-      <main>
-        <h1>Parking Lot Status</h1>
-        <RealtimeParkingLots serverData={initialParkingLots} />
+export default async function Home() {
+  const result = await getInitialParkingLots(); // fetch da data
+
+  return ( // pass it cilent side
+      <main className="p-6">
+        <h1 className="text-2xl font-bold mb-6">Parking Lot Status</h1>
+        
+        {result.error && ( // error that shows if no table found
+          <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+            <p className="font-semibold">Warning</p>
+            <p className="text-sm">{result.error}</p>
+            <p className="text-xs mt-1">Make sure your Supabase project has a <code>parkinglots</code> table (lowercase) with columns: index, lotnumber, totalspaces, takenspaces</p>
+          </div>
+        )}
+        
+        {/* Form and Map Section */}
+
+        <ParkingLotSection serverData={result.data} />
       </main>
   );
 }

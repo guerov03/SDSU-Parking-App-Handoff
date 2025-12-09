@@ -1,7 +1,15 @@
+"use client";
+
+// Home page with sign-in form and Google sign-in button
+// !the page that auto populates when loading localhost!
+
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button, type ButtonVariant } from "@/components/ui/button/Button";
 import { Input } from "@/components/ui/input";
 import type { ReactNode } from "react";
+import { validateEmail, validatePassword } from "@/lib/validation";
 import {
   CONTENT_CONTAINER_CLASSES,
   TEXT_SECTION_CLASSES,
@@ -115,6 +123,37 @@ const CAPTION_CLASSES = [
 ].join(" ");
 
 export default function HomePage() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault?.();
+    setEmailError(null);
+    setPasswordError(null);
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    const pwdCheck = validatePassword(password);
+    if (!pwdCheck.valid) {
+      setPasswordError(pwdCheck.message ?? "Invalid password.");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      router.push("/empty-state");
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return (
     <div className={CONTENT_CONTAINER_CLASSES}>
       <div className={LOGO_CONTAINER_CLASSES}>
@@ -142,29 +181,54 @@ export default function HomePage() {
         <div className={DIVIDER_LINE_CLASSES} />
       </div>
 
-      <div className={FORM_CONTAINER_CLASSES}>
+      <form className={FORM_CONTAINER_CLASSES} onSubmit={handleSubmit}>
         <div className={INPUT_GROUP_CLASSES}>
           <label className={LABEL_CLASSES}>Email</label>
-          <Input type="email" placeholder="" />
+          <Input
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            error={!!emailError}
+          />
+          {emailError && (
+            <p className="text-[var(--semantic-error)] text-sm mt-1">{emailError}</p>
+          )}
         </div>
 
         <div className={INPUT_GROUP_CLASSES}>
           <label className={LABEL_CLASSES}>Password</label>
-          <Input type="password" placeholder="" />
+          <Input
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            error={!!passwordError}
+          />
+          {passwordError && (
+            <p className="text-[var(--semantic-error)] text-sm mt-1">{passwordError}</p>
+          )}
         </div>
 
-        <Link className="w-full" href="/empty-state">
-          <Button variant={BUTTON_VARIANT}>{BUTTON_LABEL}</Button>
-        </Link>
+        <div className="w-full">
+          <Button
+            variant={BUTTON_VARIANT}
+            type="submit"
+            isLoading={submitting}
+            disabled={submitting}
+          >
+            {BUTTON_LABEL}
+          </Button>
+        </div>
 
         <p className={CAPTION_CLASSES}>
           <Link href="/empty-state">Reset password</Link>
         </p>
 
         <p className={CAPTION_CLASSES}>
-          No account? <Link href="/empty-state">Register</Link>
+          No account? <Link href="/signup">Register</Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 }
