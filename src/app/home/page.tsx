@@ -149,7 +149,7 @@ export default function HomePage() {
 
     try {
       setSubmitting(true);
-      router.push("/empty-state");
+      router.push("/parkinglot-data");
     } finally {
       setSubmitting(false);
     }
@@ -169,7 +169,7 @@ export default function HomePage() {
         <p className={DESCRIPTION_CLASSES}>{METADATA.description}</p>
       </div>
 
-      <Link className="w-full" href="/empty-state">
+      <Link className="w-full" href="/parkinglot-data">
         <Button variant={BUTTON_VARIANT_GOOGLE} leadingIcon={<GoogleIcon />}>
           {BUTTON_LABEL_GOOGLE}
         </Button>
@@ -222,7 +222,7 @@ export default function HomePage() {
         </div>
 
         <p className={CAPTION_CLASSES}>
-          <Link href="/empty-state">Reset password</Link>
+          <Link href="/parkinglot-data">Reset password</Link>
         </p>
 
         <p className={CAPTION_CLASSES}>

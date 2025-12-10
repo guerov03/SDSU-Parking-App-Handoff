@@ -157,7 +157,7 @@ export default function SignupPage() {
         <p className={DESCRIPTION_CLASSES}>{METADATA.description}</p>
       </div>
 
-      <Link className="w-full" href="/empty-state">
+      <Link className="w-full" href="/parkinglot-data">
         <Button variant={BUTTON_VARIANT_GOOGLE} leadingIcon={<GoogleIcon />}>
           {BUTTON_LABEL_GOOGLE}
         </Button>
