@@ -8,6 +8,7 @@ CREATE TABLE public.parkinglots (
     location varchar(150) NOT NULL,
     latitude double precision NULL,
     longitude double precision NULL,
+    concept3d_id text NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     CONSTRAINT parkinglots_pkey PRIMARY KEY (id),
     CONSTRAINT parkinglots_name_length CHECK (char_length(name) <= 100),
@@ -47,6 +48,7 @@ SELECT
     location,
     latitude,
     longitude,
+    concept3d_id,
     capacity,
     taken_spaces,
     -- Calculates the 'Available Spaces' field for the frontend
@@ -62,6 +64,7 @@ INSERT INTO public.parkinglots (
     location,
     latitude,
     longitude,
+    concept3d_id,
     capacity,
     taken_spaces
 )
@@ -70,6 +73,31 @@ VALUES (
     '55500 Campanile Drive, San Diego, CA 92182',
     32.7758,          
     117.0699,       
+    '147787',
     500,           
     0              
 );
+
+-- Collect parking status update requests from non-admin users
+CREATE TABLE IF NOT EXISTS public.parking_status_requests (
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    lot_id uuid REFERENCES public.parkinglots (id) ON DELETE CASCADE,
+    lot_name text,
+    requested_taken_spaces integer NOT NULL,
+    requested_by uuid,
+    requested_by_email text,
+    status text NOT NULL DEFAULT 'pending',
+    requested_at timestamptz NOT NULL DEFAULT now()
+);
+
+ALTER TABLE public.parking_status_requests ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow authenticated users to create status requests"
+ON public.parking_status_requests FOR INSERT
+TO authenticated
+WITH CHECK (true);
+
+CREATE POLICY "Allow admins to view status requests"
+ON public.parking_status_requests FOR SELECT
+TO authenticated
+USING (true);

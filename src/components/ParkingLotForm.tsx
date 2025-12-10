@@ -17,9 +17,17 @@ interface ParkingLotFormProps {
   initialData?: ParkingLot;
   onSubmit: (data: Omit<ParkingLot, "id">) => Promise<void>;
   onCancel?: () => void;
+  canEdit?: boolean;
+  disabledMessage?: string;
 }
 
-export default function ParkingLotForm({ initialData, onSubmit, onCancel }: ParkingLotFormProps) {
+export default function ParkingLotForm({
+  initialData,
+  onSubmit,
+  onCancel,
+  canEdit = true,
+  disabledMessage = "Admin access is required to manage parking lot capacity and status.",
+}: ParkingLotFormProps) {
   const [formData, setFormData] = useState<Omit<ParkingLot, "id">>({
     name: initialData?.name ?? "",
     capacity: initialData?.capacity ?? 0,
@@ -27,6 +35,7 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
     location: initialData?.location ?? "",
     latitude: initialData?.latitude,
     longitude: initialData?.longitude,
+    concept3dId: initialData?.concept3dId,
   });
 
   const [errors, setErrors] = useState<Record<string, string | null>>({
@@ -81,6 +90,11 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
     e.preventDefault();
     setSubmitError(null);
 
+    if (!canEdit) {
+      setSubmitError("You need admin access to submit this form.");
+      return;
+    }
+
     if (!validateForm()) {
       return;
     }
@@ -97,10 +111,16 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-white rounded-lg shadow-md">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <h2 className="text-lg font-semibold">
         {initialData ? "Edit Parking Lot" : "Add New Parking Lot"}
       </h2>
+
+      {!canEdit && (
+        <div className="bg-gray-100 border border-gray-300 text-gray-700 px-4 py-3 rounded text-sm">
+          {disabledMessage}
+        </div>
+      )}
 
       {submitError && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
@@ -118,6 +138,7 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
           onChange={(e) => handleChange("name", e.target.value)}
           error={!!errors.name}
           aria-invalid={!!errors.name}
+          disabled={!canEdit}
         />
         {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
       </div>
@@ -132,6 +153,7 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
           onChange={(e) => handleChange("capacity", parseInt(e.target.value, 10))}
           error={!!errors.capacity}
           aria-invalid={!!errors.capacity}
+          disabled={!canEdit}
         />
         {errors.capacity && <p className="text-red-600 text-sm mt-1">{errors.capacity}</p>}
       </div>
@@ -146,6 +168,7 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
           onChange={(e) => handleChange("available", parseInt(e.target.value, 10))}
           error={!!errors.available}
           aria-invalid={!!errors.available}
+          disabled={!canEdit}
         />
         {errors.available && <p className="text-red-600 text-sm mt-1">{errors.available}</p>}
       </div>
@@ -160,8 +183,21 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
           onChange={(e) => handleChange("location", e.target.value)}
           error={!!errors.location}
           aria-invalid={!!errors.location}
+          disabled={!canEdit}
         />
         {errors.location && <p className="text-red-600 text-sm mt-1">{errors.location}</p>}
+      </div>
+
+      {/* Concept3D ID Field */}
+      <div className="flex flex-col py-2">
+        <label className="font-semibold mb-1 text-sm">Concept3D Marker ID (Optional)</label>
+        <Input
+          type="text"
+          placeholder="e.g., 147787"
+          value={formData.concept3dId ?? ""}
+          onChange={(e) => handleChange("concept3dId", e.target.value)}
+          disabled={!canEdit}
+        />
       </div>
 
       {/* Latitude Field */}
@@ -175,6 +211,7 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
           onChange={(e) => handleChange("latitude", e.target.value ? parseFloat(e.target.value) : "")}
           error={!!errors.latitude}
           aria-invalid={!!errors.latitude}
+          disabled={!canEdit}
         />
         {errors.latitude && <p className="text-red-600 text-sm mt-1">{errors.latitude}</p>}
       </div>
@@ -190,13 +227,14 @@ export default function ParkingLotForm({ initialData, onSubmit, onCancel }: Park
           onChange={(e) => handleChange("longitude", e.target.value ? parseFloat(e.target.value) : "")}
           error={!!errors.longitude}
           aria-invalid={!!errors.longitude}
+          disabled={!canEdit}
         />
         {errors.longitude && <p className="text-red-600 text-sm mt-1">{errors.longitude}</p>}
       </div>
 
       {/* Buttons!!!!!*/}
       <div className="flex gap-4 pt-6">
-        <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting}>
+        <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting || !canEdit}>
           {initialData ? "Update" : "Add"} Parking Lot
         </Button>
         {onCancel && (

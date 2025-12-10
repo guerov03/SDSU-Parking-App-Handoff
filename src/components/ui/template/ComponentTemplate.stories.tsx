@@ -37,7 +37,7 @@
  *
  */
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { YourComponent } from "./ComponentTemplate";
 
 // Update this configuration for your component

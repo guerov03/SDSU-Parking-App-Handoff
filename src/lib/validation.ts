@@ -41,7 +41,9 @@ export function validatePassword(password: string): PasswordValidationResult {
   return { valid: true };
 }
 
-export default {
+const validationUtils = {
   validateEmail,
   validatePassword,
 };
+
+export default validationUtils;

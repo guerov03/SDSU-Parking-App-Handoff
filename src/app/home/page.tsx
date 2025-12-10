@@ -3,6 +3,7 @@
 // Home page with sign-in form and Google sign-in button
 // !the page that auto populates when loading localhost!
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -157,10 +158,13 @@ export default function HomePage() {
   return (
     <div className={CONTENT_CONTAINER_CLASSES}>
       <div className={LOGO_CONTAINER_CLASSES}>
-        <img
+        <Image
           className={LOGO_IMAGE_CLASSES}
           src="/sdsu-logo1.png"
           alt="SDSU Logo"
+          width={368}
+          height={56}
+          priority
         />
       </div>
 

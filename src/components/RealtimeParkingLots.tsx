@@ -12,65 +12,68 @@ import {
   validateCapacity,
   validateAvailable,
 } from "@/lib/parking-validation";
+import {
+  normalizeParkingLot,
+  type RawParkingLot,
+  type NormalizedParkingLot,
+} from "@/lib/parking-normalizer";
 
-interface ParkingLot {
-  Index?: number | string;
-  index?: number | string;
-  // support both camelCase (legacy in-code) and lowercase (Postgres default)
-  LotNumber?: string;
-  lotnumber?: string;
-  TotalSpaces?: number;
-  totalspaces?: number;
-  TakenSpaces?: number;
-  takenspaces?: number;
-  location?: string;
-  latitude?: number;
-  longitude?: number;
-}
+type ParkingLot = RawParkingLot;
 
 // This is the table component
-function ParkingLotsTable({ parkingLots, onLotClick }: { parkingLots: ParkingLot[]; onLotClick?: (lot: ParkingLot) => void }) {
+function ParkingLotsTable({
+  parkingLots,
+  onLotClick,
+}: {
+  parkingLots: ParkingLot[];
+  onLotClick?: (lot: NormalizedParkingLot) => void;
+}) {
   if (!parkingLots || parkingLots.length === 0) {
     return <p>No parking lot data available.</p>;
   }
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full border-separate" style={{ borderSpacing: "0 12px", color: "black" }}>
-        <thead>
-          <tr>
-            <th className="text-left px-6 py-4 text-lg font-semibold">Lot Name</th>
-            <th className="text-left px-6 py-4 text-lg font-semibold">Total Spaces</th>
-            <th className="text-left px-6 py-4 text-lg font-semibold">Taken Spaces</th>
-          </tr>
-        </thead>
-
+    <div className="overflow-x-auto space-y-3">
+      <div
+        className="inline-flex w-full items-center px-1 py-1 rounded-xl shadow-sm gap-2"
+        style={{ color: "#ffffff", backgroundColor: "#d41735" }}
+      >
+        <div className="flex-1 text-left px-5 py-3 text-lg font-semibold">Lot Name</div>
+        <div className="w-40 text-left pl-12 pr-3 py-3 text-lg font-semibold">Capacity</div>
+        <div className="w-40 text-left px-5 py-3 text-lg font-semibold">Taken Spaces</div>
+      </div>
+      <table
+        className="min-w-full border-separate text-sm text-[#2c2c2c]"
+        style={{ borderSpacing: "0 12px", color: "inherit" }}
+        aria-label="Parking lots"
+      >
         <tbody>
           {parkingLots.map((lot, idx) => {
-            const lotKey = lot.Index ?? lot.index ?? JSON.stringify(lot) ?? idx;
-            const name = lot.LotNumber ?? lot.lotnumber ?? (lot as any).name ?? "Unnamed";
-            const total = lot.TotalSpaces ?? lot.totalspaces ?? (lot as any).capacity ?? 0;
-            const taken = lot.TakenSpaces ?? lot.takenspaces ?? (lot as any).taken ?? 0;
-
+            const normalized = normalizeParkingLot(lot);
+            const lotKey = lot.Index ?? lot.index ?? normalized.id ?? idx;
             return (
               <tr key={String(lotKey)}>
                 <td className="align-top px-0">
-                  <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <div className="bg-white p-4 rounded-2xl border border-[#edf0f7] shadow-sm">
                     <button
                       type="button"
-                      onClick={() => onLotClick?.(lot)}
-                      className="text-left text-base font-medium text-blue-700 hover:underline"
+                      onClick={() => onLotClick?.(normalized)}
+                      className="text-left text-sm font-semibold text-[#0b63c4] hover:underline"
                     >
-                      {name}
+                      {normalized.name}
                     </button>
                   </div>
                 </td>
 
                 <td className="align-top px-0 w-40">
-                  <div className="bg-white p-6 rounded-lg shadow-sm text-base">{total}</div>
+                  <div className="bg-white p-4 rounded-2xl border border-[#edf0f7] shadow-sm text-sm font-medium text-center">
+                    {normalized.capacity}
+                  </div>
                 </td>
 
                 <td className="align-top px-0 w-40">
-                  <div className="bg-white p-6 rounded-lg shadow-sm text-base">{taken}</div>
+                  <div className="bg-white p-4 rounded-2xl border border-[#edf0f7] shadow-sm text-sm font-medium text-center">
+                    {normalized.taken}
+                  </div>
                 </td>
               </tr>
             );
@@ -83,14 +86,26 @@ function ParkingLotsTable({ parkingLots, onLotClick }: { parkingLots: ParkingLot
 
 // This is the main realtime component that wraps the table
 export default function RealtimeParkingLots({
-                                              serverData,
-                                              onLotClick,
-                                            }: {
+  serverData,
+  onLotClick,
+  onDataUpdate,
+}: {
   serverData: ParkingLot[];
-  onLotClick?: (lot: ParkingLot) => void;
+  onLotClick?: (lot: NormalizedParkingLot) => void;
+  onDataUpdate?: (lots: ParkingLot[]) => void;
 }) {
   const [parkingLots, setParkingLots] = useState(serverData);
   const supabase = createClient();
+
+  useEffect(() => {
+    setParkingLots(serverData);
+  }, [serverData]);
+
+  useEffect(() => {
+    if (onDataUpdate) {
+      onDataUpdate(parkingLots);
+    }
+  }, [parkingLots, onDataUpdate]);
 
   useEffect(() => {
     const channel = supabase
@@ -120,7 +135,7 @@ export default function RealtimeParkingLots({
                   const fetchUpdatedData = async () => {
                     const { data } = await supabase.from("parkinglots").select();
                     if (data) {
-                      setParkingLots(data);
+                      setParkingLots(data as unknown as ParkingLot[]);
                     }
                   };
                   fetchUpdatedData();

@@ -2,6 +2,7 @@
 
 // sign up page, /signup from local host 
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -149,7 +150,14 @@ export default function SignupPage() {
   return (
     <div className={CONTENT_CONTAINER_CLASSES}>
       <div className={LOGO_CONTAINER_CLASSES}>
-        <img className={LOGO_IMAGE_CLASSES} src="/sdsu-logo1.png" alt="SDSU Logo" />
+        <Image
+          className={LOGO_IMAGE_CLASSES}
+          src="/sdsu-logo1.png"
+          alt="SDSU Logo"
+          width={368}
+          height={56}
+          priority
+        />
       </div>
 
       <div className={TEXT_SECTION_CLASSES}>

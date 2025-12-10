@@ -50,6 +50,7 @@ export interface BadgeProps extends ComponentPropsWithoutRef<"span"> {
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
   className?: string;
+  onDismiss?: () => void;
 }
 
 // Base badge styles using component tokens

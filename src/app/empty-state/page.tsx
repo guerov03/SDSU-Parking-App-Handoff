@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button, type ButtonVariant } from "@/components/ui/button/Button";
 import {
@@ -35,10 +36,13 @@ export default function EmptyStatePage() {
       </div>
 
       <div className={FOOTER_LOGO_CONTAINER_CLASSES}>
-        <img
+        <Image
           className={FOOTER_LOGO_IMAGE_CLASSES}
           src="/sdsu-logo1.png"
           alt="SDSU Logo"
+          width={158}
+          height={24}
+          priority
         />
       </div>
     </div>

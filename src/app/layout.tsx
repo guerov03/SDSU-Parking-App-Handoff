@@ -1,18 +1,4 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Mono } from "next/font/google";
-import "../styles/globals.css";
-
-const roboto = Roboto({
-  variable: "--font-roboto-sans",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
-});
-
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
 
 export const metadata: Metadata = {
   title: "SDSU Parking App",
@@ -61,10 +47,10 @@ export default function RootLayout({
   // Body base styles using component and semantic tokens
   // Optimized for mobile devices with proper viewport constraints
   const bodyClassName = [
-    // Font families from Next.js font optimization
-    roboto.variable,
-    robotoMono.variable,
-    
+    // Font families from Tailwind base stack (system fonts)
+    "font-sans",
+    "tracking-normal",
+
     // Mobile layout foundation
     "h-screen",
     "min-w-full",

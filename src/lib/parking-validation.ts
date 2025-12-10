@@ -7,6 +7,7 @@ export interface ParkingLot
   location: string;
   latitude?: number;
   longitude?: number;
+  concept3dId?: string;
 }
 
 export interface ValidationResult 
@@ -140,6 +141,7 @@ export function validateParkingLot(lot: Partial<ParkingLot>): Record<keyof Parki
     location: validateLocation(lot.location ?? ""),
     latitude: validateLatitude(lot.latitude),
     longitude: validateLongitude(lot.longitude),
+    concept3dId: null,
   };
   return results;
 }
@@ -152,8 +154,7 @@ export function allValidationsPassed(results: Record<string, ValidationResult | 
   return Object.values(results).every((r) => r === null || r.valid);
 }
 
-export default 
-{
+const parkingValidation = {
   validateParkingLotName,
   validateCapacity,
   validateAvailable,
@@ -163,3 +164,5 @@ export default
   validateParkingLot,
   allValidationsPassed,
 };
+
+export default parkingValidation;
