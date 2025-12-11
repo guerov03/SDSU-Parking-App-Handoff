@@ -1,14 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "SDSU Parking App",
   description: "An app to help SDSU students find parking spots on campus.",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false, // Prevent zoom on mobile
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false, // Prevent zoom on mobile
 };
 
 /**
