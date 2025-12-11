@@ -11,6 +11,7 @@ import { Button, type ButtonVariant } from "@/components/ui/button/Button";
 import { Input } from "@/components/ui/input";
 import type { ReactNode } from "react";
 import { validateEmail, validatePassword } from "@/lib/validation";
+import { signin } from "../../../actions/auth/auth";
 import {
   CONTENT_CONTAINER_CLASSES,
   TEXT_SECTION_CLASSES,
@@ -131,11 +132,13 @@ export default function HomePage() {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault?.();
     setEmailError(null);
     setPasswordError(null);
+    setFormError(null);
 
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address.");
@@ -150,7 +153,15 @@ export default function HomePage() {
 
     try {
       setSubmitting(true);
+      const res = await signin({ email, password });
+      if (res.status !== 200) {
+        setFormError(res.error ?? "Unable to sign in.");
+        return;
+      }
       router.push("/parkinglot-data");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unable to sign in.";
+      setFormError(message);
     } finally {
       setSubmitting(false);
     }
@@ -224,6 +235,10 @@ export default function HomePage() {
             {BUTTON_LABEL}
           </Button>
         </div>
+
+        {formError && (
+          <p className="text-[var(--semantic-error)] text-sm">{formError}</p>
+        )}
 
         <p className={CAPTION_CLASSES}>
           <Link href="/parkinglot-data">Reset password</Link>
