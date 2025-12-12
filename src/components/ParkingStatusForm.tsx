@@ -42,12 +42,14 @@ export default function ParkingStatusForm({
     }
   }, [lots, selectedLotId]);
 
+  const [hasUserEdited, setHasUserEdited] = useState(false);
+  
   useEffect(() => {
-    if (!currentLot) {
+    if (!currentLot || hasUserEdited) {
       return;
     }
     setTakenSpaces(currentLot.takenSpaces);
-  }, [currentLot]);
+  }, [currentLot, hasUserEdited]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -92,7 +94,14 @@ export default function ParkingStatusForm({
           <select
             className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-[#d41735] focus:outline-none disabled:bg-gray-100 disabled:text-gray-500"
             value={selectedLotId}
-            onChange={(event) => setSelectedLotId(event.target.value)}
+            onChange={(event) => {
+              const newId = event.target.value;
+              setSelectedLotId(newId);
+              // Reset edited flag so the takenSpaces syncs from the newly selected lot
+              setHasUserEdited(false);
+              const newLot = lots.find((l) => l.id === newId);
+              if (newLot) setTakenSpaces(newLot.takenSpaces ?? 0);
+            }}
             disabled={lots.length === 0 || isSubmitting}
           >
             {lots.length === 0 ? (
@@ -112,10 +121,15 @@ export default function ParkingStatusForm({
           <Input
             type="number"
             placeholder="e.g., 45"
-            value={takenSpaces}
+            value={String(takenSpaces ?? 0)}
             min={0}
             max={currentLot?.capacity ?? undefined}
-            onChange={(event) => setTakenSpaces(parseInt(event.target.value || "0", 10))}
+            onChange={(event) => {
+              const parsed = Number(event.target.value);
+              const value = Number.isFinite(parsed) ? Math.max(0, Math.floor(parsed)) : 0;
+              setTakenSpaces(value);
+              setHasUserEdited(true);
+            }}
             disabled={!currentLot || isSubmitting}
             aria-invalid={takenSpaces < 0 || (currentLot ? takenSpaces > currentLot.capacity : false)}
           />

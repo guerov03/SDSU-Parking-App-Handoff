@@ -194,6 +194,30 @@ export default function ParkingLotSection({ serverData }: ParkingLotSectionProps
         available: updatedLot.capacity - updatedLot.taken_spaces,
       };
     });
+
+    try {
+      const normalized = normalizeParkingLot(updatedLot as RawParkingLot);
+      setLotOptions((prev) =>
+        prev.map((opt) =>
+          opt.id === normalized.id
+            ? {
+                ...opt,
+                name: normalized.name,
+                capacity: normalized.capacity,
+                taken: normalized.taken,
+                available: normalized.available,
+                location: normalized.location ?? opt.location,
+                latitude: normalized.latitude ?? opt.latitude,
+                longitude: normalized.longitude ?? opt.longitude,
+                concept3dId: normalized.concept3dId ?? opt.concept3dId,
+              }
+            : opt,
+        ),
+      );
+    } catch {
+      // ignore normalization errors
+
+    }
   };
 
   const handleStatusRequest = async ({ lotId, takenSpaces }: { lotId: string; takenSpaces: number }) => {
@@ -219,7 +243,6 @@ export default function ParkingLotSection({ serverData }: ParkingLotSectionProps
         lot.name ??
           "parking-lot",
       );
-
     setSelectedLot({
       id: lotId,
       name: lot.name,
@@ -409,3 +432,4 @@ export default function ParkingLotSection({ serverData }: ParkingLotSectionProps
     </div>
   );
 }
+
