@@ -57,6 +57,15 @@ const GoogleIcon = (): ReactNode => (
   </svg>
 );
 
+const CarClipArt = ({ variant = 1 }: { variant?: number }): ReactNode => (
+  <Image
+    src={`/car-clipart-${variant}.png`}
+    alt="Car"
+    width={80}
+    height={120}
+  />
+);
+
 // Constants
 const BUTTON_VARIANT: ButtonVariant = "primary";
 const BUTTON_VARIANT_GOOGLE: ButtonVariant = "google";
@@ -167,87 +176,307 @@ export default function HomePage() {
     }
   };
   return (
-    <div className={CONTENT_CONTAINER_CLASSES}>
-      <div className={LOGO_CONTAINER_CLASSES}>
-        <Image
-          className={LOGO_IMAGE_CLASSES}
-          src="/sdsu-logo1.png"
-          alt="SDSU Logo"
-          width={368}
-          height={56}
-          priority
-        />
+    <>
+      {/* Farthest left lane */}
+      <div className="hidden md:block fixed left-48 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 18s linear infinite 0s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={5} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 18s linear infinite 6s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={6} />
+        </div>
       </div>
 
-      <div className={TEXT_SECTION_CLASSES}>
-        <h1 className={HEADING_CLASSES}>{METADATA.title}</h1>
-        <p className={DESCRIPTION_CLASSES}>{METADATA.description}</p>
+      {/* Far left lane */}
+      <div className="hidden md:block fixed left-32 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 10s linear infinite 1s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={1} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 10s linear infinite 5s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={2} />
+        </div>
       </div>
 
-      <Link className="w-full" href="/parkinglot-data">
-        <Button variant={BUTTON_VARIANT_GOOGLE} leadingIcon={<GoogleIcon />}>
-          {BUTTON_LABEL_GOOGLE}
-        </Button>
-      </Link>
-
-      <div className={DIVIDER_CONTAINER_CLASSES}>
-        <div className={DIVIDER_LINE_CLASSES} />
-        <span className={DIVIDER_TEXT_CLASSES}>or</span>
-        <div className={DIVIDER_LINE_CLASSES} />
+      {/* Middle left lane */}
+      <div className="hidden md:block fixed left-16 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 8s linear infinite 0s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={3} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 8s linear infinite 4s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={4} />
+        </div>
       </div>
 
-      <form className={FORM_CONTAINER_CLASSES} onSubmit={handleSubmit}>
-        <div className={INPUT_GROUP_CLASSES}>
-          <label className={LABEL_CLASSES}>Email</label>
-          <Input
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={!!emailError}
+      {/* Left side animated cars */}
+      <div className="hidden md:block fixed left-2 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 14s linear infinite 2s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={5} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 14s linear infinite 7s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={6} />
+        </div>
+      </div>
+
+      {/* Right side animated cars */}
+      <div className="hidden md:block fixed right-2 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 12s linear infinite 1s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={1} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 12s linear infinite 5s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={2} />
+        </div>
+      </div>
+
+      {/* Middle right lane */}
+      <div className="hidden md:block fixed right-16 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 9s linear infinite 2s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={3} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 9s linear infinite 5s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={4} />
+        </div>
+      </div>
+
+      {/* Far right lane */}
+      <div className="hidden md:block fixed right-32 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 15s linear infinite 3s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={5} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 15s linear infinite 7s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={6} />
+        </div>
+      </div>
+
+      {/* Farthest right lane */}
+      <div className="hidden md:block fixed right-48 top-0 h-full pointer-events-none z-0 overflow-hidden">
+        <div
+          style={{
+            animation: "slideUp 7s linear infinite 0s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={1} />
+        </div>
+        <div
+          style={{
+            animation: "slideUp 7s linear infinite 3s",
+            animationFillMode: "forwards",
+            transform: "translateY(100vh)",
+          }}
+          className="opacity-40 will-change-transform"
+        >
+          <CarClipArt variant={2} />
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes slideUp {
+          from {
+            transform: translateY(100vh);
+          }
+          to {
+            transform: translateY(-200px);
+          }
+        }
+      `}</style>
+
+      <div className={CONTENT_CONTAINER_CLASSES}>
+        <div className={LOGO_CONTAINER_CLASSES}>
+          <Image
+            className={LOGO_IMAGE_CLASSES}
+            src="/sdsu-logo1.png"
+            alt="SDSU Logo"
+            width={368}
+            height={56}
+            priority
           />
-          {emailError && (
-            <p className="text-[var(--semantic-error)] text-sm mt-1">{emailError}</p>
-          )}
         </div>
 
-        <div className={INPUT_GROUP_CLASSES}>
-          <label className={LABEL_CLASSES}>Password</label>
-          <Input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            error={!!passwordError}
-          />
-          {passwordError && (
-            <p className="text-[var(--semantic-error)] text-sm mt-1">{passwordError}</p>
-          )}
+        <div className="flex flex-col items-center gap-2 mb-4 px-8 py-6 bg-white rounded-3xl shadow-lg border-2 border-[var(--semantic-brand-primary-default)] cursor-pointer transition-all duration-300 ease-out hover:scale-105 hover:shadow-2xl hover:border-[var(--semantic-brand-primary-hover)]">
+          <h1 className="text-5xl font-bold text-[var(--semantic-brand-primary-default)] tracking-tight select-none">
+            SDSU Parking
+          </h1>
+          <p className="text-sm text-[var(--semantic-text-secondary)] text-center max-w-sm">
+            Find parking spots on campus in real-time
+          </p>
         </div>
 
-        <div className="w-full">
-          <Button
-            variant={BUTTON_VARIANT}
-            type="submit"
-            isLoading={submitting}
-            disabled={submitting}
-          >
-            {BUTTON_LABEL}
+        <div className={TEXT_SECTION_CLASSES}>
+          <h2 className="text-xl font-semibold text-center">
+            {METADATA.title}
+          </h2>
+          <p className={DESCRIPTION_CLASSES}>{METADATA.description}</p>
+        </div>
+
+        <Link className="w-full" href="/parkinglot-data">
+          <Button variant={BUTTON_VARIANT_GOOGLE} leadingIcon={<GoogleIcon />}>
+            {BUTTON_LABEL_GOOGLE}
           </Button>
+        </Link>
+
+        <div className={DIVIDER_CONTAINER_CLASSES}>
+          <div className={DIVIDER_LINE_CLASSES} />
+          <span className={DIVIDER_TEXT_CLASSES}>or</span>
+          <div className={DIVIDER_LINE_CLASSES} />
         </div>
 
-        {formError && (
-          <p className="text-[var(--semantic-error)] text-sm">{formError}</p>
-        )}
+        <form className={FORM_CONTAINER_CLASSES} onSubmit={handleSubmit}>
+          <div className={INPUT_GROUP_CLASSES}>
+            <label className={LABEL_CLASSES}>Email</label>
+            <Input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              error={!!emailError}
+            />
+            {emailError && (
+              <p className="text-[var(--semantic-error)] text-sm mt-1">
+                {emailError}
+              </p>
+            )}
+          </div>
 
-        <p className={CAPTION_CLASSES}>
-          <Link href="/parkinglot-data">Reset password</Link>
-        </p>
+          <div className={INPUT_GROUP_CLASSES}>
+            <label className={LABEL_CLASSES}>Password</label>
+            <Input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              error={!!passwordError}
+            />
+            {passwordError && (
+              <p className="text-[var(--semantic-error)] text-sm mt-1">
+                {passwordError}
+              </p>
+            )}
+          </div>
 
-        <p className={CAPTION_CLASSES}>
-          No account? <Link href="/signup">Register</Link>
-        </p>
-      </form>
-    </div>
+          <div className="w-full">
+            <Button
+              variant={BUTTON_VARIANT}
+              type="submit"
+              isLoading={submitting}
+              disabled={submitting}
+            >
+              {BUTTON_LABEL}
+            </Button>
+          </div>
+
+          {formError && (
+            <p className="text-[var(--semantic-error)] text-sm">{formError}</p>
+          )}
+
+          <p className={CAPTION_CLASSES}>
+            <Link href="/parkinglot-data">Reset password</Link>
+          </p>
+
+          <p className={CAPTION_CLASSES}>
+            No account? <Link href="/signup">Register</Link>
+          </p>
+        </form>
+      </div>
+    </>
   );
 }
